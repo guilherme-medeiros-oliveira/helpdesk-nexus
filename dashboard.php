@@ -3,7 +3,6 @@ include 'config.php';
 if(!isset($_SESSION['user'])) { header("Location: index.php"); exit; }
 $user = $_SESSION['user'];
 
-// SEGURO: Prepared Statement
 $stmt = $conn->prepare("SELECT * FROM chamados WHERE usuario_id = ? ORDER BY id DESC");
 $stmt->bind_param("i", $user['id']);
 $stmt->execute();
@@ -17,7 +16,7 @@ $chamados = $stmt->get_result();
 <title>Dashboard - HelpDesk</title>
 <link rel="stylesheet" href="style.css">
 <style>
-/* HEADER CONFORTÁVEL */
+
 .top-bar {
   background: white;
   padding: 16px 20px;
