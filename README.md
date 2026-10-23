@@ -1,2 +1,47 @@
-# helpdesk-sistema-v1.0
-Sistema de Chamados Help Desk desenvolvido em PHP e MySQL.                                                            Sistema de Help Desk em PHP e MySQL - Simulação real de ambiente N1/N2 com abertura, categorização e resposta de chamados. Projeto de portfólio para vaga de Suporte Técnico.
+# HelpDesk - Sistema de Chamados
+
+Sistema de Help Desk desenvolvido em PHP e MySQL. Projeto criado para portfólio de suporte técnico N1/N2, simulando um ambiente real de atendimento.
+
+🔗 **Demo ao vivo:** [coloque seu link da infinityfree aqui]
+Ex: https://seuprojeto.infinityfreeapp.com
+
+## 🚀 Funcionalidades
+
+- Login de Usuário e Administrador
+- Abertura de chamados com Categoria e Prioridade
+- Acompanhamento de status: Aberto / Em Atendimento / Fechado
+- Painel Admin para responder chamados
+- Sistema de autenticação seguro
+
+## 🛠️ Tecnologias
+
+- PHP 8
+- MySQL
+- HTML5 / CSS3
+- Hospedado na InfinityFree
+
+## 🔑 Acesso de Teste
+
+**Admin (Técnico):**
+- Email: admin@helpdesk.com
+- Senha: admin123
+
+**Usuário (Cliente):**
+- Email: guilherme@teste.com
+- Senha: 123
+
+## 📸 Como usar
+
+1. Cliente cria conta e abre chamado: "PC sem internet"
+2. Técnico loga como admin e responde o chamado
+3. Cliente vê a resposta no dashboard
+
+## 👨‍💻 Autor
+
+Guilherme - Estudante de Análise e Desenvolvimento de Sistemas em busca de vaga de Help Desk / Suporte N1
+
+## 📂 Instalação Local
+
+1. Importe o `database.sql` no phpMyAdmin
+2. Configure o `config.php` com seus dados do MySQL
+3. Coloque a pasta no `htdocs` ou suba para InfinityFree
