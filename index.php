@@ -8,7 +8,6 @@ if(isset($_POST['login'])){
   $email = trim($_POST['email']);
   $senha = $_POST['senha'];
 
-  // SEGURO: Prepared Statement (anti SQL Injection)
   $stmt = $conn->prepare("SELECT id, nome, email, senha FROM usuarios WHERE email = ? LIMIT 1");
   $stmt->bind_param("s", $email);
   $stmt->execute();
@@ -17,10 +16,10 @@ if(isset($_POST['login'])){
   if($res->num_rows > 0){
     $user = $res->fetch_assoc();
     
-    // Verifica senha (compatível com MD5 antigo + novo password_hash)
+
     if (password_verify($senha, $user['senha']) || md5($senha) === $user['senha']) {
       
-      // Se ainda era MD5, atualiza pra hash seguro automaticamente
+
       if (md5($senha) === $user['senha']) {
         $novoHash = password_hash($senha, PASSWORD_DEFAULT);
         $upd = $conn->prepare("UPDATE usuarios SET senha = ? WHERE id = ?");
@@ -47,7 +46,7 @@ if(isset($_POST['login'])){
 <title>Login - HelpDesk</title>
 <link rel="stylesheet" href="style.css">
 <style>
-/* Extras só pro login - centralizado e confortável */
+
 .login-wrapper {
   min-height: 100vh;
   display: flex;
