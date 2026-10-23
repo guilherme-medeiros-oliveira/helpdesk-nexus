@@ -9,7 +9,6 @@ if(isset($_POST['criar'])){
   $email = trim($_POST['email']);
   $senha = $_POST['senha'];
 
-  // Validações básicas
   if (strlen($nome) < 3) {
     $erro = "Nome muito curto";
   } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -17,7 +16,7 @@ if(isset($_POST['criar'])){
   } elseif (strlen($senha) < 6) {
     $erro = "Senha mínima de 6 caracteres";
   } else {
-    // Verifica se e-mail já existe
+
     $check = $conn->prepare("SELECT id FROM usuarios WHERE email = ? LIMIT 1");
     $check->bind_param("s", $email);
     $check->execute();
@@ -25,11 +24,10 @@ if(isset($_POST['criar'])){
     if ($check->get_result()->num_rows > 0) {
       $erro = "Este e-mail já está cadastrado";
     } else {
-      // SEGURO: password_hash + prepared
+
       $hash = password_hash($senha, PASSWORD_DEFAULT);
       $tipo = 'usuario'; // padrão
       
-      // Se for admin@helpdesk.com, já vira admin
       if (strtolower($email) === 'admin@helpdesk.com') {
         $tipo = 'admin';
       }
