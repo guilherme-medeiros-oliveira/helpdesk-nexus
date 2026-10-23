@@ -2,9 +2,13 @@
 
 Sistema de Help Desk desenvolvido em PHP e MySQL. Projeto criado para portfólio de suporte técnico N1/N2, simulando um ambiente real de atendimento.
 
-**Demo ao vivo:**(dashboard.png)
+**Dashboard Cliente**
 
-**Demo ao vivo:**(admin.png)
+![Dashboard Cliente](dashboard.png)
+
+**Painel Admin**
+
+![Painel Admin](admin.png)
 
 🔗 **Demo ao vivo:** [https://guilhermemedeiros.freedev.app]
 
