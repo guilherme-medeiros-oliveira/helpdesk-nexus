@@ -2,8 +2,7 @@
 
 Sistema de Help Desk desenvolvido em PHP e MySQL. Projeto criado para portfólio de suporte técnico N1/N2, simulando um ambiente real de atendimento.
 
-🔗 **Demo ao vivo:** [coloque seu link da infinityfree aqui]
-Ex: https://seuprojeto.infinityfreeapp.com
+🔗 **Demo ao vivo:** [https://guilhermemedeiros.freedev.app]
 
 ## 🚀 Funcionalidades
 
