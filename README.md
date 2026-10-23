@@ -38,7 +38,7 @@ Ex: https://seuprojeto.infinityfreeapp.com
 
 ## 👨‍💻 Autor
 
-Guilherme - Estudante de Análise e Desenvolvimento de Sistemas em busca de vaga de Help Desk / Suporte N1
+Guilherme Medeiros- Estudante de Análise e Desenvolvimento de Sistemas em busca de vaga de Help Desk / Suporte N1
 
 ## 📂 Instalação Local
 
