@@ -29,10 +29,6 @@ Sistema de Help Desk desenvolvido em PHP e MySQL. Projeto criado para portfólio
 
 ## 🔑 Acesso de Teste
 
-**Admin (Técnico):**
-- Email: admin@helpdesk.com
-- Senha: admin123
-
 **Usuário (Cliente):**
 - Email: guilherme@teste.com
 - Senha: 123
