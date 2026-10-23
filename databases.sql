@@ -18,7 +18,6 @@ CREATE TABLE chamados (
   data_abertura TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Usuários de teste
 INSERT INTO usuarios (nome, email, senha, tipo) VALUES 
 ('Admin', 'admin@helpdesk.com', MD5('admin123'), 'admin'),
 ('Guilherme Teste', 'guilherme@teste.com', MD5('123'), 'usuario');
