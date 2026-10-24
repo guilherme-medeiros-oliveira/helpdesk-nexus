@@ -1,6 +1,6 @@
 markdown<div align="center">
 
-<img src="logo.png" width="90" style="border-radius:18px" />
+<img src="logo-nexus.png" width="90" style="border-radius:18px" />
 
 # NEXUS - HelpDesk
 ### Ponto de Conexão entre o Problema e a Solução
