@@ -1,166 +1,102 @@
-<?php 
-include 'config.php'; 
-if(!isset($_SESSION['user'])) { header("Location: index.php"); exit; }
-$user = $_SESSION['user'];
+<?php
+include 'config.php';
+if (!isset($_SESSION['user'])) { header("Location: index.php"); exit; }
 
-$stmt = $conn->prepare("SELECT * FROM chamados WHERE usuario_id = ? ORDER BY id DESC");
-$stmt->bind_param("i", $user['id']);
-$stmt->execute();
-$chamados = $stmt->get_result();
+$user = $_SESSION['user'];
+$tipo = $user['tipo'];
+
+if ($tipo === 'admin') {
+    $sql = "SELECT c.*, u.nome as nome_usuario FROM chamados c LEFT JOIN usuarios u ON c.usuario_id = u.id ORDER BY c.id DESC";
+    $res = $conn->query($sql);
+    $titulo = "Painel HelpDesk - Admin";
+} else {
+    $stmt = $conn->prepare("SELECT * FROM chamados WHERE usuario_id = ? ORDER BY id DESC");
+    $stmt->bind_param("i", $user['id']);
+    $stmt->execute();
+    $res = $stmt->get_result();
+    $titulo = "Painel HelpDesk - Meus Chamados";
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dashboard - HelpDesk</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title><?= $titulo ?> | NEXUS - HelpDesk</title>
 <link rel="stylesheet" href="style.css">
-<style>
-
-.top-bar {
-  background: white;
-  padding: 16px 20px;
-  border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 20px;
-  max-width: 1000px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.top-bar h2 {
-  margin: 0;
-  font-size: 20px;
-  color: #1a73e8;
-}
-
-.top-actions {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.btn-link {
-  background: #1a73e8;
-  color: white;
-  padding: 10px 16px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 14px;
-  display: inline-flex;
-  align-items: center;
-}
-
-.btn-link.secondary {
-  background: #f1f3f5;
-  color: #333;
-}
-
-.btn-link.admin {
-  background: #111827;
-  color: white;
-}
-
-.table-wrapper {
-  max-width: 1000px;
-  margin: 0 auto;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
-  overflow: hidden;
-  padding: 0;
-}
-
-.status-badge {
-  display: inline-block;
-  padding: 4px 10px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: bold;
-  text-transform: uppercase;
-}
-
-.status-aberto { background: #e8f5e9; color: #2e7d32; }
-.status-pendente { background: #fff3e0; color: #ef6c00; }
-.status-fechado { background: #f5f5f5; color: #757575; }
-.status-em_andamento { background: #e3f2fd; color: #1565c0; }
-
-.prioridade-alta { color: #d32f2f; font-weight: bold; }
-.prioridade-media { color: #f57c00; }
-.prioridade-baixa { color: #388e3c; }
-
-@media (max-width: 768px) {
-  .top-bar {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  .top-bar h2 {
-    text-align: center;
-  }
-  .top-actions {
-    justify-content: center;
-  }
-  .top-actions a {
-    flex: 1;
-    justify-content: center;
-    text-align: center;
-  }
-}
-</style>
 </head>
 <body>
 
-<div class="top-bar">
-  <h2>Olá, <?= htmlspecialchars($user['nome']) ?> 👋</h2>
-  <div class="top-actions">
-    <a href="abrir_chamado.php" class="btn-link">+ Novo Chamado</a>
-    <?php if($user['tipo']=='admin'): ?>
-      <a href="admin.php" class="btn-link admin">Painel Admin</a>
-    <?php endif; ?>
-    <a href="logout.php" class="btn-link secondary">Sair</a>
+<header class="hd-header">
+  <div class="hd-brand">
+    <div class="hd-logo">N</div>
+    <div>
+      <strong>NEXUS <span>- HelpDesk</span></strong>
+      <small>Ponto de Conexão • Suporte Profissional</small>
+    </div>
   </div>
-</div>
+  <nav class="hd-nav">
+    <span>Olá, <?= htmlspecialchars($user['nome']) ?> (<?= $tipo ?>)</span>
+    <a href="novo_chamado.php">+ Novo Chamado</a>
+    <a href="logout.php">Sair</a>
+  </nav>
+</header>
 
-<div class="table-wrapper">
-<table>
-<thead>
-<tr>
-  <th>ID</th>
-  <th>Título</th>
-  <th>Categoria</th>
-  <th>Prioridade</th>
-  <th>Status</th>
-  <th>Resposta</th>
-</tr>
-</thead>
-<tbody>
-<?php while($c = $chamados->fetch_assoc()){ ?>
-<tr>
-  <td data-label="ID">#<?= (int)$c['id'] ?></td>
-  <td data-label="Título"><?= htmlspecialchars($c['titulo']) ?></td>
-  <td data-label="Categoria"><?= htmlspecialchars($c['categoria']) ?></td>
-  <td data-label="Prioridade"><span class="prioridade-<?= strtolower(htmlspecialchars($c['prioridade'])) ?>"><?= htmlspecialchars($c['prioridade']) ?></span></td>
-  <td data-label="Status"><span class="status-badge status-<?= strtolower(str_replace(' ', '_', $c['status'])) ?>"><?= htmlspecialchars($c['status']) ?></span></td>
-  <td data-label="Resposta"><?= $c['resposta'] ? htmlspecialchars($c['resposta']) : '<span style="color:#999">-</span>' ?></td>
-</tr>
-<?php } ?>
-<?php if($chamados->num_rows === 0): ?>
-<tr>
-  <td colspan="6" style="text-align:center; padding: 40px 20px; color: #777;">
-    Nenhum chamado ainda.<br>
-    <a href="abrir_chamado.php" style="color:#1a73e8; font-weight:bold;">Abrir seu primeiro chamado</a>
-  </td>
-</tr>
-<?php endif; ?>
-</tbody>
-</table>
-</div>
+<main class="hd-container">
+  <div class="hd-card" style="margin-bottom:16px">
+    <div class="hd-card-header" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+      <div>
+        <h3 style="margin:0"><?= $titulo ?></h3>
+        <p>NEXUS = Ponto de conexão entre o problema e a solução | Total: <?= $res->num_rows ?> | SLA 4h</p>
+      </div>
+      <a href="novo_chamado.php" class="hd-btn-primary">+ Abrir Chamado</a>
+    </div>
+  </div>
+
+  <?php if($res->num_rows==0): ?>
+    <div class="hd-card"><div style="text-align:center;padding:40px"><h3>Nenhum chamado</h3><p style="color:#64748b">Clique em Novo Chamado para solicitar suporte.</p></div></div>
+  <?php else: ?>
+    <div style="display:grid;gap:12px">
+    <?php while($c=$res->fetch_assoc()): 
+      $prio = strtolower($c['prioridade']);
+      $statusClass = strtolower(str_replace(' ', '_', $c['status']));
+    ?>
+      <div class="hd-card">
+        <div style="padding:16px 20px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">
+          <div style="flex:1;min-width:240px">
+            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:6px">
+              <strong>#<?= $c['id'] ?> - <?= htmlspecialchars($c['titulo']) ?></strong>
+              <span class="hd-badge <?= $statusClass == 'aberto' ? 'badge-aberto' : 'badge-fechado' ?>"><?= htmlspecialchars($c['status']) ?></span>
+              <span class="hd-badge <?= $prio == 'alta' ? 'badge-alta' : ($prio == 'media' ? 'badge-media' : 'badge-baixa') ?>"><?= htmlspecialchars($c['prioridade']) ?></span>
+            </div>
+            <p style="margin:0 0 8px;color:#475569;font-size:14px"><?= htmlspecialchars(substr($c['descricao'],0,110)) ?>...</p>
+            <small style="color:#94a3b8">
+              📁 <?= htmlspecialchars($c['categoria']) ?> | 
+              <?php if($tipo==='admin'): ?>👤 <?= htmlspecialchars($c['nome_usuario']) ?> | <?php endif; ?>
+              🕒 <?= htmlspecialchars($c['data_abertura']) ?>
+            </small>
+          </div>
+          <div style="display:flex;align-items:center">
+            <a href="ver_chamado.php?id=<?= $c['id'] ?>" class="hd-btn-primary" style="padding:10px 16px;font-size:13px">Ver detalhes →</a>
+          </div>
+        </div>
+      </div>
+    <?php endwhile; ?>
+    </div>
+  <?php endif; ?>
+
+  <div class="hd-services" style="margin-top:24px">
+    <div><strong>💻 Hardware</strong><span>Formatação e manutenção</span></div>
+    <div><strong>🌐 Redes</strong><span>Wi-Fi e cabeamento</span></div>
+    <div><strong>🖨️ Impressoras</strong><span>Instalação e driver</span></div>
+    <div><strong>📧 Sistemas</strong><span>Office, Email, ERP</span></div>
+  </div>
+</main>
+
+<footer class="hd-footer">
+  <p><strong>NEXUS - HelpDesk</strong> | Ponto de conexão entre o problema e a solução | Osasco e Região • Remoto e Presencial • SLA Garantido</p>
+  <p style="margin-top:6px">NEXUS vem do latim: ponto central onde tudo se conecta. Nosso suporte conecta o usuário à resolução.</p>
+</footer>
 
 </body>
 </html>
