@@ -1,162 +1,115 @@
 <?php
 include 'config.php';
-session_start();
 
-$erro = "";
+$erro = '';
+$ok = '';
 
 if(isset($_POST['criar'])){
-  $nome = trim($_POST['nome']);
-  $email = trim($_POST['email']);
-  $senha = $_POST['senha'];
+    $n = trim($_POST['nome']);
+    $e = trim($_POST['email']);
+    $s_raw = $_POST['senha'];
 
-  if (strlen($nome) < 3) {
-    $erro = "Nome muito curto";
-  } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    $erro = "E-mail inválido";
-  } elseif (strlen($senha) < 6) {
-    $erro = "Senha mínima de 6 caracteres";
-  } else {
-
-    $check = $conn->prepare("SELECT id FROM usuarios WHERE email = ? LIMIT 1");
-    $check->bind_param("s", $email);
-    $check->execute();
-    
-    if ($check->get_result()->num_rows > 0) {
-      $erro = "Este e-mail já está cadastrado";
+    if($n == '' || $e == '' || $s_raw == ''){
+        $erro = "Preencha todos os campos.";
     } else {
 
-      $hash = password_hash($senha, PASSWORD_DEFAULT);
-      $tipo = 'usuario'; // padrão
-      
-      if (strtolower($email) === 'admin@helpdesk.com') {
-        $tipo = 'admin';
-      }
+        $check = $conn->prepare("SELECT id FROM usuarios WHERE email = ?");
+        $check->bind_param("s", $e);
+        $check->execute();
+        $check->store_result();
 
-      $stmt = $conn->prepare("INSERT INTO usuarios (nome, email, senha, tipo) VALUES (?, ?, ?, ?)");
-      $stmt->bind_param("ssss", $nome, $email, $hash, $tipo);
-
-      if ($stmt->execute()) {
-        header("Location: index.php?criado=1");
-        exit;
-      } else {
-        $erro = "Erro ao criar conta: " . $conn->error;
-      }
+        if($check->num_rows > 0){
+            $erro = "Este e-mail já está cadastrado na base NEXUS.";
+        } else {
+            $s = md5($s_raw); 
+            $stmt = $conn->prepare("INSERT INTO usuarios (nome,email,senha,tipo) VALUES (?, ?, ?, 'usuario')");
+            $stmt->bind_param("sss", $n, $e, $s);
+            if($stmt->execute()){
+                header("Location: index.php?cadastrado=1");
+                exit;
+            } else {
+                $erro = "Erro ao criar conta. Tente novamente.";
+            }
+        }
     }
-  }
 }
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Criar Conta - HelpDesk</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Criar Conta | NEXUS - HelpDesk</title>
 <link rel="stylesheet" href="style.css">
-<style>
-.registrar-wrapper {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 16px;
-  background: #f4f6f9;
-}
-
-.registrar-form {
-  background: white;
-  padding: 32px 24px;
-  border-radius: 16px;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-  width: 100%;
-  max-width: 400px;
-}
-
-.registrar-form h3 {
-  text-align: center;
-  margin-bottom: 24px;
-  font-size: 24px;
-  color: #111827;
-}
-
-.registrar-form input {
-  width: 100%;
-  padding: 14px 16px;
-  margin-bottom: 16px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  font-size: 16px;
-}
-
-.registrar-form input:focus {
-  outline: none;
-  border-color: #1a73e8;
-  box-shadow: 0 0 0 3px rgba(26,115,232,0.15);
-}
-
-.registrar-form button {
-  width: 100%;
-  padding: 14px;
-  background: #111827;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  font-weight: bold;
-  font-size: 16px;
-  cursor: pointer;
-  min-height: 48px;
-  margin-top: 8px;
-}
-
-.registrar-form button:hover {
-  background: #000;
-}
-
-.alert-erro {
-  background: #fdecea;
-  color: #b91c1c;
-  padding: 12px;
-  border-radius: 8px;
-  margin-bottom: 16px;
-  font-size: 14px;
-  text-align: center;
-}
-
-.link-login {
-  display: block;
-  text-align: center;
-  margin-top: 20px;
-  color: #6b7280;
-  font-size: 14px;
-}
-
-.link-login a {
-  color: #1a73e8;
-  font-weight: 600;
-  text-decoration: none;
-}
-
-@media (max-width: 480px) {
-  .registrar-form { padding: 24px 16px; box-shadow: none; border: 1px solid #eee; }
-}
-</style>
 </head>
 <body>
-<div class="registrar-wrapper">
-  <form method="POST" class="registrar-form">
-    <h3>Criar Conta</h3>
 
-    <?php if($erro): ?>
-      <div class="alert-erro"><?= htmlspecialchars($erro) ?></div>
-    <?php endif; ?>
+<header class="hd-header">
+  <div class="hd-brand">
+    <div class="hd-logo">N</div>
+    <div>
+      <strong>NEXUS <span>- HelpDesk</span></strong>
+      <small>Ponto de Conexão • Suporte Profissional</small>
+    </div>
+  </div>
+  <nav class="hd-nav">
+    <span>Novo no NEXUS?</span>
+    <a href="index.php">Fazer Login</a>
+    <a href="dashboard.php">Painel</a>
+  </nav>
+</header>
 
-    <input name="nome" placeholder="Seu nome completo" required minlength="3" value="<?= isset($_POST['nome']) ? htmlspecialchars($_POST['nome']) : '' ?>">
-    <input name="email" type="email" placeholder="Seu melhor e-mail" required value="<?= isset($_POST['email']) ? htmlspecialchars($_POST['email']) : '' ?>">
-    <input name="senha" type="password" placeholder="Crie uma senha (mín. 6 caracteres)" required minlength="6">
+<main class="hd-container">
+  <div class="hd-card" style="max-width:480px;margin:0 auto">
+    <div class="hd-card-header" style="text-align:center">
+      <div class="hd-logo" style="margin:0 auto 12px">N</div>
+      <h3 style="margin:0">Criar conta NEXUS</h3>
+      <p>Junte-se ao ponto de conexão entre problema e solução</p>
+    </div>
 
-    <button name="criar">Criar minha conta</button>
+    <form method="POST" class="hd-form">
+      <?php if($erro): ?>
+        <div style="background:#fee2e2;color:#991b1b;padding:10px 12px;border-radius:10px;font-size:13px;border:1px solid #fecaca"><?= htmlspecialchars($erro) ?></div>
+      <?php endif; ?>
 
-    <span class="link-login">Já tem conta? <a href="index.php">Fazer login</a></span>
-  </form>
-</div>
+      <div>
+        <label for="nome">Nome completo</label>
+        <input id="nome" name="nome" placeholder="Ex: Guilherme Silva" required value="<?= isset($_POST['nome']) ? htmlspecialchars($_POST['nome']) : '' ?>">
+      </div>
+
+      <div>
+        <label for="email">E-mail corporativo</label>
+        <input id="email" name="email" type="email" placeholder="seu.email@empresa.com" required value="<?= isset($_POST['email']) ? htmlspecialchars($_POST['email']) : '' ?>">
+      </div>
+
+      <div>
+        <label for="senha">Senha de acesso</label>
+        <input id="senha" name="senha" type="password" placeholder="Mínimo 6 caracteres" required minlength="6">
+      </div>
+
+      <button name="criar" class="hd-btn-primary" style="width:100%;margin-top:6px">Criar minha conta NEXUS →</button>
+
+      <div class="hd-info">
+        Ao criar, você concorda com nosso SLA de 4h úteis e atendimento N1/N2
+      </div>
+
+      <div style="text-align:center;font-size:13px;color:#64748b">
+        Já tem conta? <a href="index.php" style="color:#2563eb;font-weight:700;text-decoration:none">Fazer login</a>
+      </div>
+    </form>
+  </div>
+
+  <div class="hd-services">
+    <div><strong>🔒 Seguro</strong><span>Dados criptografados</span></div>
+    <div><strong>⚡ Rápido</strong><span>Resposta em 4h</span></div>
+    <div><strong>📞 Suporte</strong><span>Humano e técnico</span></div>
+    <div><strong>🛡️ NEXUS</strong><span>Protocolo NX</span></div>
+  </div>
+</main>
+
+<footer class="hd-footer">
+  <p><strong>NEXUS - HelpDesk</strong> | NEXUS = Ponto central onde tudo se conecta. Nosso sistema conecta você à solução.</p>
+</footer>
+
 </body>
 </html>
