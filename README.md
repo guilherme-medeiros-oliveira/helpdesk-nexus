@@ -123,7 +123,7 @@ LinkedIn
 Portfolio
 Email
 NEXUS = Ponto de conexão entre o problema e a solução. Meu código conecta usuário à resolução com SLA, histórico e experiência profissional.
-<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-8c61-5e1fc0d8b1e1.gif" width="100%">
+<img src="logo-nexus.png" width="100%">
 
 ⭐ Se esse projeto te ajudou, deixa uma estrela!
 </div>
