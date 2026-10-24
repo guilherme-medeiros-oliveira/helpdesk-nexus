@@ -1,8 +1,0 @@
-helpdesk/
-├── config.php
-├── index.php (login)
-├── registrar.php
-├── dashboard.php
-├── abrir_chamado.php
-├── admin.php
-└── logout.php
