@@ -1,10 +1,16 @@
 <?php
-$host = ""; 
-$db = "";
-$user = "";
-$pass = "";
+session_start();
+ob_start();
+
+date_default_timezone_set('America/Sao_Paulo');
+
+$host = "sql306.infinityfree.com"; 
+$db = "if0_43249033_helpdesk";
+$user = "if0_43249033";
+$pass = "UcCGZ0xGxBuEH";
 
 $conn = new mysqli($host, $user, $pass, $db);
-if ($conn->connect_error) { die("Erro: " . $conn->connect_error); }
-session_start();
-?>
+if ($conn->connect_error) { die("Erro de conexão: " . $conn->connect_error); }
+
+$conn->set_charset("utf8mb4");
+$conn->query("SET time_zone = '-03:00'");
