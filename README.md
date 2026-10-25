@@ -135,5 +135,5 @@ git clone https://github.com/seu-usuario/nexus-helpdesk.git
 
   > **NEXUS** = Ponto de conexão entre o problema e a solução. Meu código conecta usuário à resolução com SLA, histórico e experiência profissional.
 
-  ⭐ *Se esse projeto te ajudou, deixa uma estrela!*
+  ⭐ *Se você curtiu esse projeto, deixa uma estrela!*
 </div>
