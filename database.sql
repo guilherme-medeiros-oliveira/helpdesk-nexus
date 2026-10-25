@@ -38,6 +38,5 @@ CREATE TABLE `chamado_mensagens` (
 INSERT INTO `usuarios` (`nome`, `email`, `senha`, `tipo`) VALUES
 ('Admin NEXUS', 'admin@nexus.com', '0192023a7bbd73250516f069df18b500', 'admin'),
 ('Guilherme Teste', 'guilherme@teste.com', '202cb962ac59075b964b07152d234b70', 'usuario');
-admin@nexus.com / admin123guilherme@teste.com / 123
 
-/*Importar e logar:admin@nexus.com / admin123guilherme@teste.com / 123
+/*Importar e logar:admin@nexus.com senha: admin123 / admin123guilherme@teste.com senha: 123
