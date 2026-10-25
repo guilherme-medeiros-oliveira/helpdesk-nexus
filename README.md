@@ -123,7 +123,7 @@ git clone https://github.com/seu-usuario/nexus-helpdesk.git
 
 <div align="center">
 
-  <img src="guilherme-medeiros.png" width="100" style="border-radius:18px" />
+  <img src="guilherme-medeiros.png" width="230" style="border-radius:18px" />
   
   ## Guilherme Medeiros
   
@@ -131,7 +131,7 @@ git clone https://github.com/seu-usuario/nexus-helpdesk.git
 
   [LinkedIn](linkedin.com/in/guilherme-medeiros-oliveira-478b45291) | [Portfolio](https://github.com/guilherme-medeiros-oliveira/) | [Email](medeiros.oliveira.guilherme@gmail.com)
 
-  <img src="logo-nexus.png" width="250" style="border-radius:18px" />
+  <img src="logo-nexus.png" width="100" style="border-radius:18px" />
 
   > **NEXUS** = Ponto de conexão entre o problema e a solução. Meu código conecta usuário à resolução com SLA, histórico e experiência profissional.
 
