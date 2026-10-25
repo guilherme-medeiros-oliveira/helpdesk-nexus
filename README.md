@@ -114,16 +114,26 @@ git clone https://github.com/seu-usuario/nexus-helpdesk.git
 # Estrutura do Banco:
 # usuarios (id, nome, email, senha, tipo)
 # chamados (id, usuario_id, titulo, descricao, categoria, prioridade, status, data_abertura)
-# chamado_mensagens (id, chamado_id, usuario_id, mensagem, data_envio)👨‍💻 Autor
+# chamado_mensagens (id, chamado_id, usuario_id, mensagem, data_envio)
+```
+
+---
+
+## 👨‍💻 Autor
+
 <div align="center">
 
-Guilherme Medeiros
-Estudante de Análise e Desenvolvimento de Sistemas | Em busca de vaga Help Desk / Suporte N1/N2
-LinkedIn
-Portfolio
-Email
-NEXUS = Ponto de conexão entre o problema e a solução. Meu código conecta usuário à resolução com SLA, histórico e experiência profissional.
-<img src="logo-nexus.png" width="90" style="border-radius:18px" />
+  <img src="guilherme-medeiros.png" width="100" style="border-radius:18px" />
+  
+  ## Guilherme Medeiros
+  
+  *Estudante de Análise e Desenvolvimento de Sistemas | Em busca de vaga Help Desk / Suporte N1/N2*
 
-⭐ Se esse projeto te ajudou, deixa uma estrela!
+  [LinkedIn](linkedin.com/in/guilherme-medeiros-oliveira-478b45291) | [Portfolio](https://github.com/guilherme-medeiros-oliveira/) | [Email](medeiros.oliveira.guilherme@gmail.com)
+
+  <img src="logo-nexus.png" width="90" style="border-radius:18px" />
+
+  > **NEXUS** = Ponto de conexão entre o problema e a solução. Meu código conecta usuário à resolução com SLA, histórico e experiência profissional.
+
+  ⭐ *Se esse projeto te ajudou, deixa uma estrela!*
 </div>
