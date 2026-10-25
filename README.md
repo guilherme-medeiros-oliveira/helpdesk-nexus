@@ -33,9 +33,6 @@ markdown<div align="center">
 | :---: | :---: |
 | ![Dashboard Cliente](dashboard_cliente.png) | ![Painel Admin](dashboard_admin.png) |
 | *Conversa tipo WhatsApp* | *Possibilidade de Exclusão ou Edição do Chamado* |
-
-<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-8c61-5e1fc0d8b1e1.gif" width="100%">
-
 </div>
 
 ## 🚀 Funcionalidades Premium
