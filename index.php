@@ -1,5 +1,6 @@
 <?php
-include 'config.php';
+include __DIR__ . '/config.php';
+session_start();
 
 $erro = "";
 $cadastrado = isset($_GET['cadastrado']);
