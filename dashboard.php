@@ -1,6 +1,7 @@
 <?php
+session_start();
 include 'config.php';
-if (!isset($_SESSION['user'])) { header("Location: index.php"); exit; }
+if (!isset($_SESSION['user'])) { header("Location: /index.php"); exit; }
 
 $user = $_SESSION['user'];
 $tipo = $user['tipo'];
