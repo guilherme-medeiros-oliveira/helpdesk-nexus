@@ -1,18 +1,19 @@
 <?php
 date_default_timezone_set('America/Sao_Paulo');
-
 if (session_status() === PHP_SESSION_NONE) {
-    ini_set('session.gc_maxlifetime', 86400);
-    ini_set('session.cookie_lifetime', 86400);
+    if (is_dir('/tmp') && is_writable('/tmp')) {
+        session_save_path('/tmp');
+    }
     session_set_cookie_params([
         'lifetime' => 86400,
         'path' => '/',
         'samesite' => 'Lax',
-        'secure' => false,
+        'secure' => true,
         'httponly' => true
     ]);
     session_start();
 }
+// resto da conexão...
 
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 

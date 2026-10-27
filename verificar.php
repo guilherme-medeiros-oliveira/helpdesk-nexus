@@ -1,12 +1,10 @@
 <?php
-session_start();
-include 'config.php';
-echo "<pre>";
-print_r($_SESSION['user']);
-echo "</pre>";
+require_once 'config.php';
 
-$res = $conn->query("SELECT id, nome, email, tipo, LENGTH(senha) as tamanho_senha FROM usuarios");
-while($u = $res->fetch_assoc()){
-  echo $u['id']." - ".$u['email']." - tipo: ".$u['tipo']." - senha tamanho: ".$u['tamanho_senha']."<br>";
+if (!isset($_SESSION['user']) || empty($_SESSION['user']['id'])) {
+    // Não está logado, manda pro login
+    header("Location: index.php");
+    exit;
 }
-?>
+// Se chegou aqui, está logado, pode continuar
+$user_logado = $_SESSION['user'];

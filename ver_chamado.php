@@ -1,7 +1,6 @@
 <?php
-session_start();
-include 'config.php';
-if (!isset($_SESSION['user'])) { header("Location: /index.php"); exit; }
+require_once 'config.php'; // config já dá session_start
+if (!isset($_SESSION['user'])) { header("Location: index.php"); exit; }
 
 $id = intval($_GET['id'] ?? 0);
 $user = $_SESSION['user'];
@@ -239,6 +238,15 @@ form.addEventListener('submit', async (e) => {
     const msg = input.value.trim();
     if(!msg) return;
     input.value = '';
+
+    // MOSTRA NA HORA (otimista)
+    const tempDiv = document.createElement('div');
+    tempDiv.className = 'msg usuario';
+    tempDiv.style.opacity = '0.6';
+    tempDiv.innerHTML = `${msg.replace(/</g,'&lt;')}<small>Você • agora</small>`;
+    chatDiv.appendChild(tempDiv);
+    chatDiv.scrollTop = chatDiv.scrollHeight;
+
     const formData = new FormData();
     formData.append('mensagem', msg);
     formData.append('enviar_msg_ajax', '1');
@@ -246,6 +254,7 @@ form.addEventListener('submit', async (e) => {
         method: 'POST',
         body: formData
     });
+    tempDiv.remove(); // remove temp e busca a real
     fetchNew();
     input.focus();
 });
