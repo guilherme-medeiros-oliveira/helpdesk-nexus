@@ -1,4 +1,6 @@
-<?php include 'config.php'; if(!isset($_SESSION['user'])) header("Location: index.php");
+<?php
+session_start();
+include 'config.php';
 if(isset($_POST['abrir'])){
  $titulo=$conn->real_escape_string($_POST['titulo']);
  $cat=$_POST['categoria']; $pri=$_POST['prioridade']; $desc=$conn->real_escape_string($_POST['descricao']);

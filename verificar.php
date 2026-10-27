@@ -1,4 +1,5 @@
 <?php
+session_start();
 include 'config.php';
 echo "<pre>";
 print_r($_SESSION['user']);

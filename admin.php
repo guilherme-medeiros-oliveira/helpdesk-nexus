@@ -1,4 +1,5 @@
 <?php
+session_start();
 include 'config.php';
 if(!isset($_SESSION['user']) || $_SESSION['user']['tipo'] != 'admin') { die("Acesso negado. Logue como admin@helpdesk.com"); }
 
