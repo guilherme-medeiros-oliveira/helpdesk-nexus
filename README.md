@@ -9,10 +9,10 @@ markdown<div align="center">
 
 [![PHP](https://img.shields.io/badge/PHP-8.2-2563eb?style=for-the-badge&logo=php&logoColor=white)](https://php.net)
 [![MySQL](https://img.shields.io/badge/MySQL-8.0-0f172a?style=for-the-badge&logo=mysql&logoColor=white)](https://mysql.com)
-[![Status](https://img.shields.io/badge/Status-Ativo-22c55e?style=for-the-badge)](https://guilhermemedeiros.freedev.app)
+[![Status](https://img.shields.io/badge/Status-Ativo-22c55e?style=for-the-badge)](https://helpdesk-nexus-lac.vercel.app/dashboard.php)
 [![NEXUS](https://img.shields.io/badge/NEXUS-HelpDesk-60a5fa?style=for-the-badge)]()
 
-**[🔗 DEMO AO VIVO](https://guilhermemedeiros.freedev.app) • [📸 Screenshots](#-preview) • [🚀 Funcionalidades](#-funcionalidades-premium)**
+**[🔗 DEMO AO VIVO](https://helpdesk-nexus-lac.vercel.app/dashboard.php) • [📸 Screenshots](#-preview) • [🚀 Funcionalidades](#-funcionalidades-premium)**
 
 </div>
 
