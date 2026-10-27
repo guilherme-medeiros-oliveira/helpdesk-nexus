@@ -1,7 +1,7 @@
 <?php
 session_start();
 include 'config.php';
-if (!isset($_SESSION['user'])) { header("Location: index.php"); exit; }
+if (!isset($_SESSION['user'])) { header("Location: /index.php"); exit; }
 
 $id = intval($_GET['id'] ?? 0);
 $user = $_SESSION['user'];
@@ -10,8 +10,12 @@ $tipo = $user['tipo'];
 
 if (isset($_GET['delete']) && $tipo == 'admin') {
     $del_id = intval($_GET['delete']);
-    $conn->query("DELETE FROM chamado_mensagens WHERE chamado_id = $del_id");
-    $conn->query("DELETE FROM chamados WHERE id = $del_id");
+    $stmtDel = $conn->prepare("DELETE FROM chamado_mensagens WHERE chamado_id = ?");
+    $stmtDel->bind_param("i", $del_id);
+    $stmtDel->execute();
+    $stmtDel2 = $conn->prepare("DELETE FROM chamados WHERE id = ?");
+    $stmtDel2->bind_param("i", $del_id);
+    $stmtDel2->execute();
     header("Location: dashboard.php"); exit;
 }
 
@@ -26,6 +30,20 @@ if ($tipo != 'admin' && $ch['usuario_id'] != $user_id) {
     die("Sem permissão");
 }
 
+// Envio via AJAX - sem reload
+if (isset($_POST['enviar_msg_ajax'])) {
+    $msg = trim($_POST['mensagem'] ?? '');
+    if ($msg != '') {
+        $ins = $conn->prepare("INSERT INTO chamado_mensagens (chamado_id, usuario_id, mensagem) VALUES (?, ?, ?)");
+        $ins->bind_param("iis", $id, $user_id, $msg);
+        $ins->execute();
+    }
+    header('Content-Type: application/json');
+    echo json_encode(['ok'=>true]);
+    exit;
+}
+
+// Fallback sem JS
 if (isset($_POST['enviar_msg'])) {
     $msg = trim($_POST['mensagem']);
     if ($msg != '') {
@@ -49,6 +67,13 @@ $msgs->bind_param("i", $id);
 $msgs->execute();
 $mensagens = $msgs->get_result();
 
+$lastMsgId = 0;
+$listaMsgs = [];
+while($r = $mensagens->fetch_assoc()){
+    $listaMsgs[] = $r;
+    $lastMsgId = max($lastMsgId, $r['id']);
+}
+
 $prio = strtolower($ch['prioridade']);
 $statusRaw = $ch['status'];
 $statusClass = strtolower(str_replace(' ', '_', $statusRaw));
@@ -63,7 +88,7 @@ $statusClass = strtolower(str_replace(' ', '_', $statusRaw));
 <style>
 .detail-grid{display:grid;grid-template-columns:1.4fr .8fr;gap:16px}
 .chat-wrap{max-height:520px;overflow-y:auto;border:1px solid #e2e8f0;border-radius:14px;padding:14px;background:#f8fafc;display:flex;flex-direction:column;gap:10px}
-.msg{padding:12px 14px;border-radius:16px;max-width:82%;line-height:1.4;font-size:14px;box-shadow:0 1px 4px rgba(0,0,0,.04)}
+.msg{padding:12px 14px;border-radius:16px;max-width:82%;line-height:1.4;font-size:14px;box-shadow:0 1px 4px rgba(0,0,0,.04);animation:fadeIn .2s}
 .msg.admin{background:linear-gradient(135deg,#2563eb,#3b82f6);color:#fff;margin-left:auto;border-bottom-right-radius:6px}
 .msg.usuario{background:#fff;border:1px solid #e2e8f0;border-bottom-left-radius:6px}
 .msg small{display:block;font-size:11px;opacity:.75;margin-top:6px}
@@ -73,6 +98,7 @@ $statusClass = strtolower(str_replace(' ', '_', $statusRaw));
 .meta-box{background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:14px;font-size:13px;color:#475569}
 @media(max-width:800px){.detail-grid{grid-template-columns:1fr}}
 .cliente-only{max-width:800px;margin:0 auto;width:100%}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 </style>
 </head>
 <body>
@@ -90,7 +116,6 @@ $statusClass = strtolower(str_replace(' ', '_', $statusRaw));
 </header>
 
 <main class="hd-container">
-
 <?php if($tipo == 'admin'): ?>
   <div class="detail-grid">
     <div class="hd-card">
@@ -130,13 +155,13 @@ $statusClass = strtolower(str_replace(' ', '_', $statusRaw));
       <div class="hd-card-header"><h3 style="margin:0">💬 Conversa NEXUS</h3><p>Suporte em tempo real • SLA 4h úteis</p></div>
       <div style="padding:16px;display:flex;flex-direction:column;flex:1">
         <div class="chat-wrap" id="chat">
-          <?php if($mensagens->num_rows==0): ?>
-            <p style="text-align:center;color:#94a3b8;font-size:13px;padding:30px 10px">Nenhuma mensagem ainda.</p>
-          <?php else: while($m=$mensagens->fetch_assoc()): $classe=($m['tipo']=='admin')?'admin':'usuario'; ?>
-            <div class="msg <?= $classe ?>"><?= nl2br(htmlspecialchars($m['mensagem'])) ?><small><?= htmlspecialchars($m['nome']) ?> • <?= date('d/m/Y H:i', strtotime($m['data_envio'])) ?></small></div>
-          <?php endwhile; endif; ?>
+          <?php if(empty($listaMsgs)): ?>
+            <p id="empty-chat" style="text-align:center;color:#94a3b8;font-size:13px;padding:30px 10px">Nenhuma mensagem ainda.</p>
+          <?php else: foreach($listaMsgs as $m): $classe=($m['tipo']=='admin')?'admin':'usuario'; ?>
+            <div class="msg <?= $classe ?>" data-id="<?= $m['id'] ?>"><?= nl2br(htmlspecialchars($m['mensagem'])) ?><small><?= htmlspecialchars($m['nome']) ?> • <?= date('d/m/Y H:i', strtotime($m['data_envio'])) ?></small></div>
+          <?php endforeach; endif; ?>
         </div>
-        <form method="POST" class="form-chat"><textarea name="mensagem" rows="2" placeholder="Digite sua resposta..." required></textarea><button name="enviar_msg" style="min-width:90px">Enviar</button></form>
+        <form class="form-chat" id="chatForm"><textarea id="mensagemInput" rows="2" placeholder="Digite sua resposta..." required></textarea><button type="submit" style="min-width:90px">Enviar</button></form>
       </div>
     </div>
   </div>
@@ -150,13 +175,13 @@ $statusClass = strtolower(str_replace(' ', '_', $statusRaw));
       </div>
       <div style="padding:16px;display:flex;flex-direction:column;flex:1">
         <div class="chat-wrap" id="chat">
-          <?php if($mensagens->num_rows==0): ?>
-            <p style="text-align:center;color:#94a3b8;font-size:13px;padding:30px 10px">Nenhuma mensagem ainda.<br>Aguarde nosso suporte.</p>
-          <?php else: while($m=$mensagens->fetch_assoc()): $classe=($m['tipo']=='admin')?'admin':'usuario'; ?>
-            <div class="msg <?= $classe ?>"><?= nl2br(htmlspecialchars($m['mensagem'])) ?><small><?= htmlspecialchars($m['nome']) ?> • <?= date('d/m/Y H:i', strtotime($m['data_envio'])) ?></small></div>
-          <?php endwhile; endif; ?>
+          <?php if(empty($listaMsgs)): ?>
+            <p id="empty-chat" style="text-align:center;color:#94a3b8;font-size:13px;padding:30px 10px">Nenhuma mensagem ainda.<br>Aguarde nosso suporte.</p>
+          <?php else: foreach($listaMsgs as $m): $classe=($m['tipo']=='admin')?'admin':'usuario'; ?>
+            <div class="msg <?= $classe ?>" data-id="<?= $m['id'] ?>"><?= nl2br(htmlspecialchars($m['mensagem'])) ?><small><?= htmlspecialchars($m['nome']) ?> • <?= date('d/m/Y H:i', strtotime($m['data_envio'])) ?></small></div>
+          <?php endforeach; endif; ?>
         </div>
-        <form method="POST" class="form-chat"><textarea name="mensagem" rows="2" placeholder="Digite sua resposta..." required></textarea><button name="enviar_msg" style="min-width:90px">Enviar</button></form>
+        <form class="form-chat" id="chatForm"><textarea id="mensagemInput" rows="2" placeholder="Digite sua resposta..." required></textarea><button type="submit" style="min-width:90px">Enviar</button></form>
         <div class="hd-info" style="margin-top:12px">✅ NEXUS: Ponto de conexão entre o problema e a solução</div>
       </div>
     </div>
@@ -165,6 +190,65 @@ $statusClass = strtolower(str_replace(' ', '_', $statusRaw));
 
 <a href="dashboard.php" style="display:inline-block;margin-top:18px;color:#64748b;text-decoration:none;font-size:14px">← Voltar ao Painel NEXUS</a>
 </main>
-<script>document.getElementById('chat').scrollTop = document.getElementById('chat').scrollHeight;</script>
+<script>
+const chatDiv = document.getElementById('chat');
+const form = document.getElementById('chatForm');
+const input = document.getElementById('mensagemInput');
+let lastId = <?= $lastMsgId ?>;
+let isScrolledToBottom = true;
+
+chatDiv.scrollTop = chatDiv.scrollHeight;
+
+chatDiv.addEventListener('scroll', () => {
+    isScrolledToBottom = (chatDiv.scrollHeight - chatDiv.scrollTop - chatDiv.clientHeight) < 50;
+});
+
+function appendMessage(m){
+    if(document.querySelector(`[data-id="${m.id}"]`)) return;
+    const empty = document.getElementById('empty-chat');
+    if(empty) empty.remove();
+    const div = document.createElement('div');
+    div.className = 'msg ' + (m.tipo === 'admin' ? 'admin' : 'usuario');
+    div.dataset.id = m.id;
+    const data = new Date(m.data_envio).toLocaleString('pt-BR');
+    div.innerHTML = `${String(m.mensagem).replace(/</g,'&lt;').replace(/\n/g,'<br>')}<small>${m.nome} • ${data}</small>`;
+    chatDiv.appendChild(div);
+}
+
+async function fetchNew(){
+    try{
+        const res = await fetch(`chat_fetch.php?id=<?= $id ?>&last_id=${lastId}`);
+        if(!res.ok) return;
+        const msgs = await res.json();
+        if(msgs.length > 0){
+            msgs.forEach(m => {
+                appendMessage(m);
+                lastId = Math.max(lastId, parseInt(m.id));
+            });
+            if(isScrolledToBottom){
+                chatDiv.scrollTop = chatDiv.scrollHeight;
+            }
+        }
+    } catch(e){}
+}
+
+setInterval(fetchNew, 2500);
+
+form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const msg = input.value.trim();
+    if(!msg) return;
+    input.value = '';
+    const formData = new FormData();
+    formData.append('mensagem', msg);
+    formData.append('enviar_msg_ajax', '1');
+    await fetch(`ver_chamado.php?id=<?= $id ?>`, {
+        method: 'POST',
+        body: formData
+    });
+    fetchNew();
+    input.focus();
+});
+</script>
 </body>
 </html>
