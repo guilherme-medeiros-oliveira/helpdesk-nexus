@@ -36,10 +36,17 @@ if (isset($_POST['enviar_msg_ajax'])) {
         $ins = $conn->prepare("INSERT INTO chamado_mensagens (chamado_id, usuario_id, mensagem) VALUES (?, ?, ?)");
         $ins->bind_param("iis", $id, $user_id, $msg);
         $ins->execute();
+        $newId = $conn->insert_id;
+        // devolve a mensagem real já
+        $ret = $conn->prepare("SELECT m.*, u.nome, u.tipo FROM chamado_mensagens m JOIN usuarios u ON m.usuario_id=u.id WHERE m.id=?");
+        $ret->bind_param("i", $newId);
+        $ret->execute();
+        $nova = $ret->get_result()->fetch_assoc();
+        header('Content-Type: application/json');
+        echo json_encode($nova);
+        exit;
     }
-    header('Content-Type: application/json');
-    echo json_encode(['ok'=>true]);
-    exit;
+    echo json_encode(['ok'=>false]); exit;
 }
 
 // Fallback sem JS
@@ -194,24 +201,23 @@ const chatDiv = document.getElementById('chat');
 const form = document.getElementById('chatForm');
 const input = document.getElementById('mensagemInput');
 let lastId = <?= $lastMsgId ?>;
-let isScrolledToBottom = true;
-
 chatDiv.scrollTop = chatDiv.scrollHeight;
 
-chatDiv.addEventListener('scroll', () => {
-    isScrolledToBottom = (chatDiv.scrollHeight - chatDiv.scrollTop - chatDiv.clientHeight) < 50;
-});
+function escapeHtml(t){ return t.replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
-function appendMessage(m){
-    if(document.querySelector(`[data-id="${m.id}"]`)) return;
+function appendMessage(m, isTemp = false){
+    if(!isTemp && document.querySelector(`[data-id="${m.id}"]`)) return;
     const empty = document.getElementById('empty-chat');
     if(empty) empty.remove();
     const div = document.createElement('div');
     div.className = 'msg ' + (m.tipo === 'admin' ? 'admin' : 'usuario');
-    div.dataset.id = m.id;
-    const data = new Date(m.data_envio).toLocaleString('pt-BR');
-    div.innerHTML = `${String(m.mensagem).replace(/</g,'&lt;').replace(/\n/g,'<br>')}<small>${m.nome} • ${data}</small>`;
+    div.dataset.id = isTemp ? m.tempId : m.id;
+    if(isTemp) div.style.opacity = '0.7';
+    const data = isTemp ? 'agora' : new Date(m.data_envio).toLocaleString('pt-BR');
+    div.innerHTML = `${escapeHtml(m.mensagem).replace(/\n/g,'<br>')}<small>${escapeHtml(m.nome)} • ${data}</small>`;
     chatDiv.appendChild(div);
+    chatDiv.scrollTop = chatDiv.scrollHeight;
+    return div;
 }
 
 async function fetchNew(){
@@ -219,43 +225,46 @@ async function fetchNew(){
         const res = await fetch(`chat_fetch.php?id=<?= $id ?>&last_id=${lastId}`);
         if(!res.ok) return;
         const msgs = await res.json();
-        if(msgs.length > 0){
-            msgs.forEach(m => {
-                appendMessage(m);
-                lastId = Math.max(lastId, parseInt(m.id));
+        msgs.forEach(m => {
+            // remove temp com mesmo texto se houver
+            document.querySelectorAll('[data-id^="temp-"]').forEach(el => {
+                if(el.textContent.includes(m.mensagem.substring(0,20))) el.remove();
             });
-            if(isScrolledToBottom){
-                chatDiv.scrollTop = chatDiv.scrollHeight;
-            }
-        }
+            appendMessage(m);
+            lastId = Math.max(lastId, parseInt(m.id));
+        });
     } catch(e){}
 }
-
-setInterval(fetchNew, 2500);
+setInterval(fetchNew, 2000);
 
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const msg = input.value.trim();
     if(!msg) return;
+    const tempId = 'temp-' + Date.now();
     input.value = '';
-
-    // MOSTRA NA HORA (otimista)
-    const tempDiv = document.createElement('div');
-    tempDiv.className = 'msg usuario';
-    tempDiv.style.opacity = '0.6';
-    tempDiv.innerHTML = `${msg.replace(/</g,'&lt;')}<small>Você • agora</small>`;
-    chatDiv.appendChild(tempDiv);
-    chatDiv.scrollTop = chatDiv.scrollHeight;
+    
+    // 1. aparece na hora, sem sumir
+    appendMessage({mensagem: msg, nome: 'Você', tipo: '<?= $tipo ?>', tempId: tempId}, true);
 
     const formData = new FormData();
     formData.append('mensagem', msg);
     formData.append('enviar_msg_ajax', '1');
-    await fetch(`ver_chamado.php?id=<?= $id ?>`, {
-        method: 'POST',
-        body: formData
-    });
-    tempDiv.remove(); // remove temp e busca a real
-    fetchNew();
+    
+    try {
+        const res = await fetch(`ver_chamado.php?id=<?= $id ?>`, {method: 'POST', body: formData});
+        const novaMsg = await res.json();
+        if(novaMsg.id){
+            // troca o temp pelo real
+            const tempEl = document.querySelector(`[data-id="${tempId}"]`);
+            if(tempEl) tempEl.remove();
+            appendMessage(novaMsg);
+            lastId = Math.max(lastId, parseInt(novaMsg.id));
+        }
+    } catch(err){
+        // se falhar, deixa o temp e tenta de novo
+        fetchNew();
+    }
     input.focus();
 });
 </script>
