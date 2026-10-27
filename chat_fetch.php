@@ -1,5 +1,4 @@
 <?php
-date_default_timezone_set('America/Sao_Paulo');
 session_start();
 include 'config.php';
 if (!isset($_SESSION['user'])) { http_response_code(403); exit; }

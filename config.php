@@ -1,10 +1,13 @@
 <?php
+session_start();
+ob_start();
+
 date_default_timezone_set('America/Sao_Paulo');
 
-$host = "sql10.freesqldatabase.com"; 
-$db = "sql10839480";
-$user = "sql10839480";
-$pass = "J7F3FVdIEW";
+$host = "sql306.infinityfree.com"; 
+$db = "if0_43249033_helpdesk";
+$user = "if0_43249033";
+$pass = "Gemrtkls9x8e";
 
 $conn = new mysqli($host, $user, $pass, $db);
 if ($conn->connect_error) { die("Erro de conexão: " . $conn->connect_error); }
