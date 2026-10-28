@@ -86,7 +86,6 @@ if(isset($_POST['login'])){
   <nav class="hd-nav">
     <span>SLA 4h úteis</span>
     <a href="/registrar.php">Criar conta</a>
-    <a href="/">Login</a>
     <a href="/sobre.php">Sobre</a>
     <a href="/termos.php">Termos</a>
     <a href="/privacidade.php" class="active">Privacidade</a>
