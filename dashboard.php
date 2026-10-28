@@ -38,8 +38,7 @@ if ($tipo === 'admin') {
   </div>
   <nav class="hd-nav">
     <span>Olá, <?= htmlspecialchars($user['nome']) ?> (<?= $tipo ?>)</span>
-    <a href="novo_chamado.php">+ Novo Chamado</a>
-    <div class="nav"><a href="/">Login</a>
+    <a href="novo_chamado.php">Abrir Chamado</a>
     <a href="/sobre.php">Sobre</a>
     <a href="/termos.php">Termos</a>
     <a href="/privacidade.php" class="active">Privacidade</a>

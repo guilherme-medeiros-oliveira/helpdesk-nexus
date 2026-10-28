@@ -56,7 +56,6 @@ if(isset($_POST['criar'])){
   <nav class="hd-nav">
     <span>Novo no NEXUS?</span>
     <a href="index.php">Fazer Login</a>
-    <a href="dashboard.php">Painel</a>
     <a href="/sobre.php">Sobre</a>
     <a href="/termos.php">Termos</a>
     <a href="/privacidade.php" class="active">Privacidade</a>
