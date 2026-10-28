@@ -75,6 +75,7 @@ if(isset($_POST['login'])){
 </head>
 <body style="display:flex;flex-direction:column;min-height:100vh">
 <header class="hd-header">
+  
   <div class="hd-brand">
     <div class="hd-logo">N</div>
     <div>
@@ -85,7 +86,10 @@ if(isset($_POST['login'])){
   <nav class="hd-nav">
     <span>SLA 4h úteis</span>
     <a href="/registrar.php">Criar conta</a>
+    <a href="/">Login</a>
     <a href="/sobre.php">Sobre</a>
+    <a href="/termos.php">Termos</a>
+    <a href="/privacidade.php" class="active">Privacidade</a>
   </nav>
 </header>
 <main class="hd-container" style="flex:1;display:grid;place-items:center">

@@ -116,7 +116,10 @@ $statusClass = strtolower(str_replace(' ', '_', $statusRaw));
   <nav class="hd-nav">
     <span>Ticket #<?= $id ?></span>
     <a href="dashboard.php">Painel</a>
-    <a href="novo_chamado.php">Novo</a>
+    <a href="novo_chamado.php">Novo Chamado</a>
+    <a href="/sobre.php">Sobre</a>
+    <a href="/termos.php">Termos</a>
+    <a href="/privacidade.php" class="active">Privacidade</a>
     <a href="logout.php">Sair</a>
   </nav>
 </header>
