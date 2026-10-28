@@ -89,7 +89,7 @@ if(isset($_POST['criar'])){
       </div>
       <div style="display:flex;gap:8px;align-items:flex-start;margin:12px 0">
   <input type="checkbox" required name="aceite" id="aceite">
-  <label for="aceite" style="font-size:12px;color:#475569">Concordo com os <a href="/termos.html" target="_blank">Termos</a> e <a href="/privacidade.html" target="_blank">Privacidade</a></label>
+  <label for="aceite" style="font-size:12px;color:#475569">Concordo com os <a href="/termos.php" target="_blank">Termos</a> e <a href="/privacidade.php" target="_blank">Privacidade</a></label>
 </div>
       <button name="criar" class="hd-btn-primary" style="width:100%;margin-top:6px">Criar minha conta NEXUS →</button>
 

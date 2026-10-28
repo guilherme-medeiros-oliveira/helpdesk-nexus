@@ -85,7 +85,7 @@ if(isset($_POST['login'])){
   <nav class="hd-nav">
     <span>SLA 4h úteis</span>
     <a href="/registrar.php">Criar conta</a>
-    <a href="/termos.html">Sobre</a>
+    <a href="/sobre.php">Sobre</a>
   </nav>
 </header>
 <main class="hd-container" style="flex:1;display:grid;place-items:center">
@@ -120,10 +120,10 @@ if(isset($_POST['login'])){
 </main>
 
 <footer style="background:#0f172a;color:#94a3b8;padding:20px;text-align:center;font-size:12px;">
-  <a href="/sobre.html" style="color:#e2e8f0;text-decoration:none;margin:0 6px;">Sobre nós</a> |
-  <a href="/termos.html" style="color:#e2e8f0;text-decoration:none;margin:0 6px;">Termos de Uso</a> |
-  <a href="/privacidade.html" style="color:#e2e8f0;text-decoration:none;margin:0 6px;">Privacidade (LGPD)</a><br><br>
-  © 2026 NEXUS - HelpDesk • suporte@nexus-lac.vercel.app
+  <a href="/sobre.php" style="color:#e2e8f0;text-decoration:none;margin:0 6px;">Sobre nós</a> |
+  <a href="/termos.php" style="color:#e2e8f0;text-decoration:none;margin:0 6px;">Termos de Uso</a> |
+  <a href="/privacidade.php" style="color:#e2e8f0;text-decoration:none;margin:0 6px;">Privacidade (LGPD)</a><br><br>
+  © 2026 NEXUS - HelpDesk • medeiros.oliveira.guilherme@gmail.com
 </footer>
 
 <div id="lgpd-overlay">
@@ -131,9 +131,9 @@ if(isset($_POST['login'])){
     <h3>🔒 Antes de entrar no NEXUS</h3>
     <p>Para continuar, você precisa ler e concordar com nossas políticas. Levamos sua privacidade a sério (LGPD).</p>
     <div class="lgpd-links">
-      <a href="/termos.html" target="_blank">📄 Termos de Uso</a>
-      <a href="/privacidade.html" target="_blank">🔐 Política de Privacidade</a>
-      <a href="/sobre.html" target="_blank">ℹ️ Sobre o NEXUS</a>
+      <a href="/termos.php" target="_blank">📄 Termos de Uso</a>
+      <a href="/privacidade.php" target="_blank">🔐 Política de Privacidade</a>
+      <a href="/sobre.php" target="_blank">ℹ️ Sobre o NEXUS</a>
     </div>
     <div class="lgpd-check">
       <input type="checkbox" id="checkLgpd">

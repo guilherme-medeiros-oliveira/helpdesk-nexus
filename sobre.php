@@ -33,7 +33,7 @@ footer a{color:#e2e8f0;text-decoration:none;margin:0 6px}
 <div class="header">
   <div class="logo">N</div>
   <div><h1>NEXUS - <span>HelpDesk</span></h1><p>PONTO DE CONEXÃO • SUPORTE PROFISSIONAL</p></div>
-  <div class="nav"><a href="/">Login</a><a href="/sobre.html" class="active">Sobre</a><a href="/termos.html">Termos</a><a href="/privacidade.html">Privacidade</a></div>
+  <div class="nav"><a href="/">Login</a><a href="/sobre.php" class="active">Sobre</a><a href="/termos.php">Termos</a><a href="/privacidade.php">Privacidade</a></div>
 </div>
 
 <div class="container">
@@ -72,7 +72,7 @@ footer a{color:#e2e8f0;text-decoration:none;margin:0 6px}
 </div>
 
 <footer>
-  <a href="/sobre.html">Sobre nós</a> | <a href="/termos.html">Termos de Uso</a> | <a href="/privacidade.html">Privacidade (LGPD)</a> | <a href="mailto:medeiros.oliveira.guilherme@gmail.com">Contato</a><br><br>
+  <a href="/sobre.php">Sobre nós</a> | <a href="/termos.php">Termos de Uso</a> | <a href="/privacidade.php">Privacidade (LGPD)</a> | <a href="mailto:medeiros.oliveira.guilherme@gmail.com">Contato</a><br><br>
   © 2026 NEXUS - HelpDesk • Desenvolvido por Guilherme Medeiros Oliveira • HelpDesk N1 • Osasco/SP
 </footer>
 </body>
