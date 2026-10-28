@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sobre nós - NEXUS HelpDesk</title>
+<link rel="stylesheet" href="style.css">
+<style>
+body{margin:0;font-family:Inter,system-ui;background:#f1f5f9;display:flex;flex-direction:column;min-height:100vh}
+.header{background:#0f172a;padding:16px 20px;display:flex;align-items:center;gap:12px;color:white}
+.logo{background:#3b82f6;width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-weight:800;font-size:22px}
+.header h1{margin:0;font-size:18px} .header h1 span{color:#60a5fa}
+.header p{margin:0;font-size:10px;letter-spacing:2px;opacity:.7}
+.nav{margin-left:auto;display:flex;gap:12px;font-size:13px}
+.nav a{color:#94a3b8;text-decoration:none} .nav a.active{color:#3b82f6;font-weight:700}
+.container{max-width:750px;margin:24px auto;padding:0 16px;flex:1}
+.card{background:white;border-radius:16px;padding:20px;box-shadow:0 2px 10px rgba(0,0,0,.05);margin-bottom:16px}
+.card h2{margin:0;color:#0f172a}
+.sub{color:#3b82f6;margin:4px 0 0;font-size:14px}
+.titulo{font-size:18px;font-weight:800;text-align:center;margin:28px 0 14px;color:#0f172a}
+.step{display:flex;gap:14px;align-items:flex-start}
+.icon{width:52px;height:52px;border-radius:50%;background:#2563eb;color:white;display:grid;place-items:center;font-size:22px;flex-shrink:0}
+.card p{margin:8px 0 0;color:#475569;font-size:14.5px;line-height:1.6}
+.card b{color:#0f172a}
+.btn{background:#2563eb;color:white;width:100%;padding:14px;border:0;border-radius:12px;font-weight:800;cursor:pointer;margin-top:10px}
+.btn:hover{background:#1d4ed8}
+footer{background:#0f172a;color:#94a3b8;padding:20px;text-align:center;font-size:12px}
+footer a{color:#e2e8f0;text-decoration:none;margin:0 6px}
+.perfil{display:flex;gap:12px;align-items:center;background:#eff6ff;border:1px solid #dbeafe;padding:14px;border-radius:12px;margin-top:14px}
+.perfil strong{color:#1e40af}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="logo">N</div>
+  <div><h1>NEXUS - <span>HelpDesk</span></h1><p>PONTO DE CONEXÃO • SUPORTE PROFISSIONAL</p></div>
+  <div class="nav"><a href="/">Login</a><a href="/sobre.html" class="active">Sobre</a><a href="/termos.html">Termos</a><a href="/privacidade.html">Privacidade</a></div>
+</div>
+
+<div class="container">
+  <div class="card">
+    <h2>Sobre a NEXUS</h2>
+    <p class="sub">Ponto de conexão entre o problema e a solução</p>
+    <p>O NEXUS nasceu da necessidade real que vi em empresas de Osasco e região: o suporte desorganizado via WhatsApp, e-mail e planilhas. Decidi criar uma plataforma simples, rápida e profissional para organizar tudo em um só lugar.</p>
+    <div class="perfil">
+      <div class="logo" style="width:44px;height:44px">G</div>
+      <div>
+        <strong>Guilherme Medeiros Oliveira</strong><br>
+        <span style="font-size:13px;color:#475569">Estudante e Técnico de TI | HelpDesk N1 | Criador do NEXUS</span><br>
+        <span style="font-size:12px;color:#64748b">medeiros.oliveira.guilherme@gmail.com • Osasco/SP</span>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="titulo">Nossa Missão</h3>
+  <div class="card">
+    <p>Conectar clientes e técnicos de forma rápida, transparente e eficiente. Transformar o suporte em uma experiência ágil, confiável e humana, garantindo que cada problema seja resolvido com profissionalismo e excelência. Nosso SLA de demonstração é de <b>4h úteis</b>.</p>
+  </div>
+
+  <h3 class="titulo">Como funciona</h3>
+  <div class="card"><div class="step"><div class="icon">💬</div><div><b>1. Cliente abre chamado</b><p>Abra seu chamado descrevendo o problema em segundos, pelo portal. Nosso sistema gera um protocolo automático (NX-000...) e categoriza por setor e prioridade.</p></div></div></div>
+  <div class="card"><div class="step"><div class="icon">🛠️</div><div><b>2. Técnico resolve</b><p>Especialistas qualificados atendem sua solicitação com transparência, atualizando o status em tempo real e conversando via chat interno até a resolução.</p></div></div></div>
+  <div class="card"><div class="step"><div class="icon">📊</div><div><b>3. Gestor acompanha</b><p>Acompanhe métricas, tempo médio de resposta, volume de chamados e SLA em painel completo para garantir controle e qualidade do serviço prestado.</p></div></div></div>
+
+  <h3 class="titulo">Nossos Valores</h3>
+  <div class="card"><b>🔒 Segurança e transparência em cada atendimento.</b><p>Estamos ao seu lado para resolver com agilidade, cuidado e proteção dos seus dados conforme LGPD.</p></div>
+  <div class="card"><b>🤝 Parceria</b><p>Tecnologia e processos modernos para evoluir seu suporte. Crescemos juntos com nossos clientes e colaboradores.</p></div>
+
+  <h3 class="titulo">Tecnologia</h3>
+  <div class="card"><b>💻 Infraestrutura Moderna</b><p>Plataforma 100% em nuvem, segura e escalável, desenvolvida com PHP, MySQL, JavaScript, HTML5 e CSS3. Dados criptografados e monitoramento para alta disponibilidade.</p><p style="margin-top:10px"><b>Stack:</b> PHP • MySQL • JavaScript • HTML5 • CSS3 • Vercel • GitHub</p></div>
+
+  <button class="btn" onclick="location.href='mailto:medeiros.oliveira.guilherme@gmail.com'">Fale com nosso time → medeiros.oliveira.guilherme@gmail.com</button>
+</div>
+
+<footer>
+  <a href="/sobre.html">Sobre nós</a> | <a href="/termos.html">Termos de Uso</a> | <a href="/privacidade.html">Privacidade (LGPD)</a> | <a href="mailto:medeiros.oliveira.guilherme@gmail.com">Contato</a><br><br>
+  © 2026 NEXUS - HelpDesk • Desenvolvido por Guilherme Medeiros Oliveira • HelpDesk N1 • Osasco/SP
+</footer>
+</body>
+</html>
