@@ -32,13 +32,13 @@ if(isset($_POST['login'])){
 
     if ($logou) {
         // SALVA O ACEITE NO BANCO SE AINDA NÃO TIVER
-        if(isset($_POST['aceite_termos'])){
+        if(isset($_POST['aceite_termos']) && $_POST['aceite_termos'] == 1){
             $up2 = $conn->prepare("UPDATE usuarios SET aceite_termos = 1, aceite_data = NOW() WHERE id = ?");
             $up2->bind_param("i", $user['id']);
             $up2->execute();
         }
         $_SESSION['user'] = $user;
-        header("Location: /dashboard.php");
+        header("Location: dashboard.php");
         exit;
     } else {
         $erro = "Senha incorreta";
@@ -85,10 +85,10 @@ if(isset($_POST['login'])){
   </div>
   <nav class="hd-nav">
     <span>SLA 4h úteis</span>
-    <a href="/registrar.php">Criar conta</a>
-    <a href="/sobre.php">Sobre</a>
-    <a href="/termos.php">Termos</a>
-    <a href="/privacidade.php" class="active">Privacidade</a>
+    <a href="registrar.php">Criar conta</a>
+    <a href="sobre.php">Sobre</a>
+    <a href="termos.php">Termos</a>
+    <a href="privacidade.php">Privacidade</a>
   </nav>
 </header>
 <main class="hd-container" style="flex:1;display:grid;place-items:center">
@@ -113,19 +113,19 @@ if(isset($_POST['login'])){
         <label for="senha">Senha</label>
         <input id="senha" name="senha" type="password" placeholder="Sua senha NEXUS" required>
       </div>
-      <input type="hidden" name="aceite_termos" id="aceite_termos_input" value="1">
-      <button name="login" class="hd-btn-primary" style="width:100%;min-height:48px;margin-top:4px">Entrar no NEXUS →</button>
+      <input type="hidden" name="aceite_termos" id="aceite_termos_input" value="">
+      <button type="submit" name="login" id="btnLogin" class="hd-btn-primary" style="width:100%;min-height:48px;margin-top:4px" disabled>Entrar no NEXUS →</button>
       <div style="text-align:center;font-size:13px;color:#64748b;margin-top:2px">
-        Não tem conta? <a href="/registrar.php" style="color:#2563eb;font-weight:700;text-decoration:none">Criar conta NEXUS</a>
+        Não tem conta? <a href="registrar.php" style="color:#2563eb;font-weight:700;text-decoration:none">Criar conta NEXUS</a>
       </div>
     </form>
   </div>
 </main>
 
 <footer style="background:#0f172a;color:#94a3b8;padding:20px;text-align:center;font-size:12px;">
-  <a href="/sobre.php" style="color:#e2e8f0;text-decoration:none;margin:0 6px;">Sobre nós</a> |
-  <a href="/termos.php" style="color:#e2e8f0;text-decoration:none;margin:0 6px;">Termos de Uso</a> |
-  <a href="/privacidade.php" style="color:#e2e8f0;text-decoration:none;margin:0 6px;">Privacidade (LGPD)</a><br><br>
+  <a href="sobre.php" style="color:#e2e8f0;text-decoration:none;margin:0 6px;">Sobre nós</a> |
+  <a href="termos.php" style="color:#e2e8f0;text-decoration:none;margin:0 6px;">Termos de Uso</a> |
+  <a href="privacidade.php" style="color:#e2e8f0;text-decoration:none;margin:0 6px;">Privacidade (LGPD)</a><br><br>
   © 2026 NEXUS - HelpDesk • medeiros.oliveira.guilherme@gmail.com
 </footer>
 
@@ -134,9 +134,9 @@ if(isset($_POST['login'])){
     <h3>🔒 Antes de entrar no NEXUS</h3>
     <p>Para continuar, você precisa ler e concordar com nossas políticas. Levamos sua privacidade a sério (LGPD).</p>
     <div class="lgpd-links">
-      <a href="/termos.php" target="_blank">📄 Termos de Uso</a>
-      <a href="/privacidade.php" target="_blank">🔐 Política de Privacidade</a>
-      <a href="/sobre.php" target="_blank">ℹ️ Sobre o NEXUS</a>
+      <a href="termos.php" target="_blank">📄 Termos de Uso</a>
+      <a href="privacidade.php" target="_blank">🔐 Política de Privacidade</a>
+      <a href="sobre.php" target="_blank">ℹ️ Sobre o NEXUS</a>
     </div>
     <div class="lgpd-check">
       <input type="checkbox" id="checkLgpd">
@@ -151,10 +151,18 @@ if(isset($_POST['login'])){
 const overlay = document.getElementById('lgpd-overlay');
 const check = document.getElementById('checkLgpd');
 const btn = document.getElementById('btnAceitar');
+const btnLogin = document.getElementById('btnLogin');
+const aceiteInput = document.getElementById('aceite_termos_input');
 
-// MOSTRA SÓ SE AINDA NÃO ACEITOU
+function habilitarLogin(){
+  aceiteInput.value = '1';
+  btnLogin.disabled = false;
+}
+
 if(!localStorage.getItem('nexus_lgpd_aceito')){
   overlay.classList.add('show');
+} else {
+  habilitarLogin();
 }
 
 check.addEventListener('change', ()=>{
@@ -167,6 +175,7 @@ btn.addEventListener('click', ()=>{
   localStorage.setItem('nexus_lgpd_aceito', '1');
   localStorage.setItem('nexus_lgpd_data', new Date().toISOString());
   overlay.classList.remove('show');
+  habilitarLogin();
 });
 </script>
 </body>

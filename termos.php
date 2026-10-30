@@ -25,7 +25,7 @@ footer a{color:#e2e8f0;text-decoration:none;margin:0 6px}
 <div class="header">
   <div class="logo">N</div>
   <div><h1>NEXUS - <span>HelpDesk</span></h1><p>PONTO DE CONEXÃO • SUPORTE PROFISSIONAL</p></div>
-  <div class="nav"><a href="/">Login</a><a href="/sobre.php">Sobre</a><a href="/termos.php" class="active">Termos</a><a href="/privacidade.php">Privacidade</a></div>
+  <div class="nav"><a href="index.php">Login</a><a href="sobre.php">Sobre</a><a href="termos.php" class="active">Termos</a><a href="privacidade.php">Privacidade</a></div>
 </div>
 <div class="container">
   <div class="card">
@@ -64,7 +64,7 @@ footer a{color:#e2e8f0;text-decoration:none;margin:0 6px}
   </div>
 </div>
 <footer>
-  <a href="/sobre.php">Sobre nós</a> | <a href="/termos.php">Termos</a> | <a href="/privacidade.php">Privacidade</a> | <a href="mailto:medeiros.oliveira.guilherme@gmail.com">Contato</a><br><br>
+  <a href="sobre.php">Sobre nós</a> | <a href="termos.php">Termos</a> | <a href="privacidade.php">Privacidade</a> | <a href="mailto:medeiros.oliveira.guilherme@gmail.com">Contato</a><br><br>
   © 2026 NEXUS - HelpDesk • Desenvolvido por Guilherme Medeiros Oliveira • SLA 4h úteis
 </footer>
 </body>

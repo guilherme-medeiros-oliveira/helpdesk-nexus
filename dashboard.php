@@ -1,7 +1,7 @@
 <?php
 session_start();
 include 'config.php';
-if (!isset($_SESSION['user'])) { header("Location: /index.php"); exit; }
+if (!isset($_SESSION['user'])) { header("Location: index.php"); exit; }
 
 $user = $_SESSION['user'];
 $tipo = $user['tipo'];
@@ -39,9 +39,9 @@ if ($tipo === 'admin') {
   <nav class="hd-nav">
     <span>Olá, <?= htmlspecialchars($user['nome']) ?> (<?= $tipo ?>)</span>
     <a href="novo_chamado.php">Abrir Chamado</a>
-    <a href="/sobre.php">Sobre</a>
-    <a href="/termos.php">Termos</a>
-    <a href="/privacidade.php" class="active">Privacidade</a>
+    <a href="sobre.php">Sobre</a>
+    <a href="termos.php">Termos</a>
+    <a href="privacidade.php" class="active">Privacidade</a>
     <a href="logout.php">Sair</a>
   </nav>
 </header>
