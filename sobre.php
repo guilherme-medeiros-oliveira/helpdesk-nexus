@@ -5,34 +5,34 @@
 <title>Sobre nós - NEXUS HelpDesk</title>
 <link rel="stylesheet" href="style.css">
 <style>
-body{margin:0;font-family:Inter,system-ui;background:#f1f5f9;display:flex;flex-direction:column;min-height:100vh}
-.header{background:#0f172a;padding:16px 20px;display:flex;align-items:center;gap:12px;color:white}
-.logo{background:#3b82f6;width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-weight:800;font-size:22px}
-.header h1{margin:0;font-size:18px} .header h1 span{color:#60a5fa}
-.header p{margin:0;font-size:10px;letter-spacing:2px;opacity:.7}
-.nav{margin-left:auto;display:flex;gap:12px;font-size:13px}
-.nav a{color:#94a3b8;text-decoration:none} .nav a.active{color:#3b82f6;font-weight:700}
-.container{max-width:750px;margin:24px auto;padding:0 16px;flex:1}
-.card{background:white;border-radius:16px;padding:20px;box-shadow:0 2px 10px rgba(0,0,0,.05);margin-bottom:16px}
-.card h2{margin:0;color:#0f172a}
-.sub{color:#3b82f6;margin:4px 0 0;font-size:14px}
-.titulo{font-size:18px;font-weight:800;text-align:center;margin:28px 0 14px;color:#0f172a}
+body{margin:0;font-family:Inter,system-ui;background:#FAFAF8;display:flex;flex-direction:column;min-height:100vh;color:#37352F}
+.header{background:#FBFBFA;border-bottom:1px solid #EAE9E5;padding:16px 24px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:10}
+.logo{background:#111;width:36px;height:36px;border-radius:8px;display:grid;place-items:center;font-weight:700;font-size:18px;color:#fff}
+.header h1{margin:0;font-size:16px;font-weight:600;color:#111} .header h1 span{color:#706F6B;font-weight:400}
+.header p{margin:0;font-size:10px;letter-spacing:1.2px;opacity:.6;color:#706F6B}
+.nav{margin-left:auto;display:flex;gap:16px;font-size:13px}
+.nav a{color:#706F6B;text-decoration:none} .nav a.active{color:#111;font-weight:600;border-bottom:2px solid #111;padding-bottom:2px}
+.container{max-width:780px;margin:32px auto;padding:0 20px;flex:1;width:100%;box-sizing:border-box}
+.card{background:#FFFFFF;border:1px solid #EAE9E5;border-radius:16px;padding:28px;box-shadow:0 4px 24px rgba(0,0,0,0.04);margin-bottom:16px}
+.card h2{margin:0;color:#111;font-size:24px;font-weight:600;letter-spacing:-0.3px}
+.sub{color:#706F6B;margin:6px 0 0;font-size:14px}
+.titulo{font-size:15px;font-weight:600;text-align:left;margin:32px 4px 12px;color:#111;letter-spacing:-0.2px;text-transform:uppercase;opacity:.8}
 .step{display:flex;gap:14px;align-items:flex-start}
-.icon{width:52px;height:52px;border-radius:50%;background:#2563eb;color:white;display:grid;place-items:center;font-size:22px;flex-shrink:0}
-.card p{margin:8px 0 0;color:#475569;font-size:14.5px;line-height:1.6}
-.card b{color:#0f172a}
-.btn{background:#2563eb;color:white;width:100%;padding:14px;border:0;border-radius:12px;font-weight:800;cursor:pointer;margin-top:10px}
-.btn:hover{background:#1d4ed8}
-footer{background:#0f172a;color:#94a3b8;padding:20px;text-align:center;font-size:12px}
-footer a{color:#e2e8f0;text-decoration:none;margin:0 6px}
-.perfil{display:flex;gap:12px;align-items:center;background:#eff6ff;border:1px solid #dbeafe;padding:14px;border-radius:12px;margin-top:14px}
-.perfil strong{color:#1e40af}
+.icon{width:40px;height:40px;border-radius:8px;background:#F1F1EF;color:#111;display:grid;place-items:center;font-size:18px;flex-shrink:0;border:1px solid #EAE9E5}
+.card p{margin:8px 0 0;color:#37352F;font-size:14.5px;line-height:1.7}
+.card b{color:#111}
+.btn{background:#111;color:white;width:100%;padding:14px;border:0;border-radius:10px;font-weight:600;cursor:pointer;margin-top:10px;font-size:14px}
+.btn:hover{background:#000}
+footer{background:#FBFBFA;border-top:1px solid #EAE9E5;color:#706F6B;padding:24px;text-align:center;font-size:12.5px}
+footer a{color:#37352F;text-decoration:none;margin:0 8px}
+.perfil{display:flex;gap:12px;align-items:center;background:#FBFBFA;border:1px solid #EAE9E5;padding:14px;border-radius:12px;margin-top:16px}
+.perfil strong{color:#111}
 </style>
 </head>
 <body>
 <div class="header">
   <div class="logo">N</div>
-  <div><h1>NEXUS - <span>HelpDesk</span></h1><p>PONTO DE CONEXÃO • SUPORTE PROFISSIONAL</p></div>
+  <div><h1>NEXUS <span>HelpDesk</span></h1><p>PONTO DE CONEXÃO • SUPORTE PROFISSIONAL</p></div>
   <div class="nav"><a href="index.php">Login</a><a href="sobre.php" class="active">Sobre</a><a href="termos.php">Termos</a><a href="privacidade.php">Privacidade</a></div>
 </div>
 
@@ -42,11 +42,11 @@ footer a{color:#e2e8f0;text-decoration:none;margin:0 6px}
     <p class="sub">Ponto de conexão entre o problema e a solução</p>
     <p>O NEXUS nasceu da necessidade real que vi em empresas de Osasco e região: o suporte desorganizado via WhatsApp, e-mail e planilhas. Decidi criar uma plataforma simples, rápida e profissional para organizar tudo em um só lugar.</p>
     <div class="perfil">
-      <div class="logo" style="width:44px;height:44px">G</div>
+      <div class="logo" style="width:36px;height:36px">G</div>
       <div>
         <strong>Guilherme Medeiros Oliveira</strong><br>
-        <span style="font-size:13px;color:#475569">Estudante e Técnico de TI | HelpDesk N1 | Criador do NEXUS</span><br>
-        <span style="font-size:12px;color:#64748b">medeiros.oliveira.guilherme@gmail.com • Osasco/SP</span>
+        <span style="font-size:13px;color:#37352F">Estudante e Técnico de TI | HelpDesk N1 | Criador do NEXUS</span><br>
+        <span style="font-size:12px;color:#706F6B">medeiros.oliveira.guilherme@gmail.com • Osasco/SP</span>
       </div>
     </div>
   </div>

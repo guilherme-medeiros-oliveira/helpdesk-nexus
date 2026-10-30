@@ -5,26 +5,26 @@
 <title>Política de Privacidade (LGPD) - NEXUS HelpDesk</title>
 <link rel="stylesheet" href="style.css">
 <style>
-body{margin:0;font-family:Inter,system-ui;background:#f1f5f9;display:flex;flex-direction:column;min-height:100vh}
-.header{background:#0f172a;padding:16px 20px;display:flex;align-items:center;gap:12px;color:white}
-.logo{background:#3b82f6;width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-weight:800;font-size:22px}
-.header h1{margin:0;font-size:18px} .header h1 span{color:#60a5fa}
-.header p{margin:0;font-size:10px;letter-spacing:2px;opacity:.7}
-.nav{margin-left:auto;display:flex;gap:12px;font-size:13px}
-.nav a{color:#94a3b8;text-decoration:none} .nav a.active{color:#3b82f6;font-weight:700}
-.container{max-width:750px;margin:24px auto;padding:0 16px;flex:1}
-.card{background:white;border-radius:16px;padding:24px;box-shadow:0 2px 10px rgba(0,0,0,.05);line-height:1.7;color:#334155;font-size:14.5px}
-.card h2{color:#0f172a;margin-top:0}
-.card h3{color:#0f172a;margin:28px 0 8px;font-size:16px}
-footer{background:#0f172a;color:#94a3b8;padding:20px;text-align:center;font-size:12px}
-footer a{color:#e2e8f0;text-decoration:none;margin:0 6px}
-.badge{display:inline-block;background:#eff6ff;color:#2563eb;border:1px solid #dbeafe;padding:4px 10px;border-radius:20px;font-size:12px;font-weight:700;margin-bottom:12px}
+body{margin:0;font-family:Inter,system-ui;background:#FAFAF8;display:flex;flex-direction:column;min-height:100vh;color:#37352F}
+.header{background:#FBFBFA;border-bottom:1px solid #EAE9E5;padding:16px 24px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:10}
+.logo{background:#111;width:36px;height:36px;border-radius:8px;display:grid;place-items:center;font-weight:700;font-size:18px;color:#fff}
+.header h1{margin:0;font-size:16px;font-weight:600;color:#111} .header h1 span{color:#706F6B;font-weight:400}
+.header p{margin:0;font-size:10px;letter-spacing:1.2px;opacity:.6;color:#706F6B}
+.nav{margin-left:auto;display:flex;gap:16px;font-size:13px}
+.nav a{color:#706F6B;text-decoration:none} .nav a.active{color:#111;font-weight:600;border-bottom:2px solid #111;padding-bottom:2px}
+.container{max-width:780px;margin:48px auto;padding:0 20px;flex:1;width:100%;box-sizing:border-box}
+.card{background:#FFFFFF;border:1px solid #EAE9E5;border-radius:16px;padding:48px;box-shadow:0 4px 24px rgba(0,0,0,0.04);line-height:1.75;color:#37352F;font-size:14.5px}
+.card h2{color:#111;margin-top:0;font-size:26px;font-weight:600;letter-spacing:-0.3px}
+.card h3{color:#111;margin:32px 0 8px;font-size:15px;font-weight:600}
+footer{background:#FBFBFA;border-top:1px solid #EAE9E5;color:#706F6B;padding:24px;text-align:center;font-size:12.5px}
+footer a{color:#37352F;text-decoration:none;margin:0 8px}
+.badge{display:inline-block;background:#F1F1EF;color:#111;border:1px solid #EAE9E5;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600;margin-bottom:16px;letter-spacing:0.2px}
 </style>
 </head>
 <body>
 <div class="header">
   <div class="logo">N</div>
-  <div><h1>NEXUS - <span>HelpDesk</span></h1><p>PONTO DE CONEXÃO • SUPORTE PROFISSIONAL</p></div>
+  <div><h1>NEXUS <span>HelpDesk</span></h1><p>PONTO DE CONEXÃO • SUPORTE PROFISSIONAL</p></div>
   <div class="nav"><a href="index.php">Login</a><a href="sobre.php">Sobre</a><a href="termos.php">Termos</a><a href="privacidade.php" class="active">Privacidade</a></div>
 </div>
 <div class="container">
@@ -63,7 +63,7 @@ footer a{color:#e2e8f0;text-decoration:none;margin:0 6px}
     <h3>10. Contato do Encarregado</h3>
     <p>Dúvidas, reclamações ou pedidos sobre privacidade: fale direto comigo, Guilherme Medeiros Oliveira, em <b>medeiros.oliveira.guilherme@gmail.com</b>.</p>
 
-    <p style="margin-top:24px;background:#f8fafc;padding:12px;border-radius:10px;border:1px solid #e2e8f0"><b>Consentimento:</b> Ao clicar em "Aceitar e entrar no NEXUS" você declara que leu e concorda com esta Política e com os Termos de Uso.</p>
+    <p style="margin-top:24px;background:#FBFBFA;padding:14px;border-radius:10px;border:1px solid #EAE9E5"><b>Consentimento:</b> Ao clicar em "Aceitar e entrar no NEXUS" você declara que leu e concorda com esta Política e com os Termos de Uso.</p>
   </div>
 </div>
 <footer>
