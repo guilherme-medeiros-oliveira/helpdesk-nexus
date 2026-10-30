@@ -57,6 +57,17 @@ body{background:var(--light);color:var(--text);line-height:1.5}
 .hd-card-header p{margin:0;color:var(--muted);font-size:14px}
 
 /* FORMS */
+.hd-form{display:flex;flex-direction:column;gap:14px}
+.hd-password-field{position:relative}
+.hd-password-field input{padding-right:44px}
+.hd-eye{
+  position:absolute;right:6px;top:50%;transform:translateY(-50%);
+  background:transparent;color:var(--muted);border:0;padding:8px;
+  min-width:auto;font-size:16px;line-height:1;box-shadow:none;display:grid;place-items:center
+}
+.hd-eye:hover{background:transparent;color:var(--text);transform:translateY(-50%)}
+.hd-login-footer a{color:#e2e8f0;text-decoration:none;margin:0 6px;transition:.2s}
+.hd-login-footer a:hover{color:#fff;text-decoration:underline}
 input, textarea, select{
   width:100%;padding:12px 14px;
   border:1px solid var(--border);border-radius:10px;

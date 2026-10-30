@@ -94,7 +94,6 @@ if(isset($_POST['login'])){
 <main class="hd-container" style="flex:1;display:grid;place-items:center">
   <div class="hd-card" style="max-width:420px;width:100%;margin:20px auto">
     <div class="hd-card-header" style="text-align:center;padding:32px 24px 18px">
-      <div class="hd-logo" style="margin:0 auto 14px">N</div>
       <h2 style="margin:0 0 6px">NEXUS Login</h2>
       <p>Acesse o ponto de conexão entre o problema e a solução</p>
     </div>
@@ -111,7 +110,10 @@ if(isset($_POST['login'])){
       </div>
       <div>
         <label for="senha">Senha</label>
-        <input id="senha" name="senha" type="password" placeholder="Sua senha NEXUS" required>
+        <div class="hd-password-field">
+          <input id="senha" name="senha" type="password" placeholder="Sua senha NEXUS" required>
+          <button type="button" class="hd-eye" id="toggleSenha" aria-label="Mostrar senha">👁</button>
+        </div>
       </div>
       <input type="hidden" name="aceite_termos" id="aceite_termos_input" value="">
       <button type="submit" name="login" id="btnLogin" class="hd-btn-primary" style="width:100%;min-height:48px;margin-top:4px" disabled>Entrar no NEXUS →</button>
@@ -122,10 +124,10 @@ if(isset($_POST['login'])){
   </div>
 </main>
 
-<footer style="background:#0f172a;color:#94a3b8;padding:20px;text-align:center;font-size:12px;">
-  <a href="sobre.php" style="color:#e2e8f0;text-decoration:none;margin:0 6px;">Sobre nós</a> |
-  <a href="termos.php" style="color:#e2e8f0;text-decoration:none;margin:0 6px;">Termos de Uso</a> |
-  <a href="privacidade.php" style="color:#e2e8f0;text-decoration:none;margin:0 6px;">Privacidade (LGPD)</a><br><br>
+<footer class="hd-login-footer" style="background:#0f172a;color:#94a3b8;padding:20px;text-align:center;font-size:12px;">
+  <a href="sobre.php">Sobre nós</a> |
+  <a href="termos.php">Termos de Uso</a> |
+  <a href="privacidade.php">Privacidade (LGPD)</a><br><br>
   © 2026 NEXUS - HelpDesk • medeiros.oliveira.guilherme@gmail.com
 </footer>
 
@@ -176,6 +178,15 @@ btn.addEventListener('click', ()=>{
   localStorage.setItem('nexus_lgpd_data', new Date().toISOString());
   overlay.classList.remove('show');
   habilitarLogin();
+});
+
+const senhaInput = document.getElementById('senha');
+const toggleSenha = document.getElementById('toggleSenha');
+toggleSenha.addEventListener('click', ()=>{
+  const mostrar = senhaInput.type === 'password';
+  senhaInput.type = mostrar ? 'text' : 'password';
+  toggleSenha.setAttribute('aria-label', mostrar ? 'Ocultar senha' : 'Mostrar senha');
+  toggleSenha.textContent = mostrar ? '🙈' : '👁';
 });
 </script>
 </body>
