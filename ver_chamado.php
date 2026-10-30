@@ -7,6 +7,16 @@ $user = $_SESSION['user'];
 $user_id = $user['id'];
 $tipo = $user['tipo'];
 
+if ($tipo != 'admin') {
+  $check = $conn->prepare("SELECT id FROM chamados WHERE id = ? AND usuario_id = ?");
+  $check->bind_param("ii", $id, $user_id);
+  $check->execute();
+  if ($check->get_result()->num_rows == 0) {
+    http_response_code(403);
+    die("Você não tem permissão para ver este chamado.");
+  }
+}
+
 if (isset($_GET['delete']) && $tipo == 'admin') {
     $del_id = intval($_GET['delete']);
     $stmtDel = $conn->prepare("DELETE FROM chamado_mensagens WHERE chamado_id = ?");
