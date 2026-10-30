@@ -2,6 +2,8 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="/favicon.png?v=3">
+<link rel="icon" type="image/x-icon" href="/favicon.ico?v=3">
 <title>Política de Privacidade (LGPD) - NEXUS HelpDesk</title>
 <link rel="stylesheet" href="style.css">
 <style>

@@ -9,6 +9,8 @@ if(isset($_POST['abrir'])){
  header("Location: dashboard.php");
 }
 ?>
+<link rel="icon" type="image/png" href="/favicon.png?v=3">
+<link rel="icon" type="image/x-icon" href="/favicon.ico?v=3">
 <form method="POST"><h3>Abrir Chamado</h3>
 <input name="titulo" placeholder="Ex: PC sem internet" required><br>
 <select name="categoria"><option>Hardware</option><option>Software</option><option>Rede</option><option>Impressora</option><option>Email</option></select>

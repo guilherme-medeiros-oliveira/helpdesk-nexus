@@ -10,6 +10,8 @@ if(isset($_POST['responder'])){
 
 $todos = $conn->query("SELECT c.*, u.nome as usuario FROM chamados c JOIN usuarios u ON c.usuario_id = u.id ORDER BY c.id DESC");
 ?>
+<link rel="icon" type="image/png" href="/favicon.png?v=3">
+<link rel="icon" type="image/x-icon" href="/favicon.ico?v=3">
 <h2>Painel Help Desk - Técnico</h2>
 <a href="dashboard.php">Voltar</a> | <a href="logout.php">Sair</a>
 <hr>
