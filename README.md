@@ -31,7 +31,7 @@ markdown<div align="center">
 
 | Dashboard Cliente | Painel Admin NEXUS |
 | :---: | :---: |
-| ![Dashboard Cliente](abrir-chamado.png) | ![Painel Admin](dashboard_admin.png) |
+| ![Dashboard Cliente](abrir_chamado.png) | ![Painel Admin](dashboard_admin.png) |
 | *Conversa tipo WhatsApp* | *Possibilidade de Exclusão ou Edição do Chamado* |
 </div>
 
