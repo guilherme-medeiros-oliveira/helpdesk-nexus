@@ -18,9 +18,9 @@ if (session_status() === PHP_SESSION_NONE) {
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
 $host = "sql10.freesqldatabase.com";
-$user_db = "sql10839480";
-$pass_db = "J7F3FVdIEW";
-$dbname = "sql10839480";
+$user_db = "sql10839843";
+$pass_db = "DMbewPCkPq";
+$dbname = "sql10839843";
 
 try {
     $conn = new mysqli($host, $user_db, $pass_db, $dbname);
