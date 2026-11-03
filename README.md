@@ -31,7 +31,7 @@
 
 | Dashboard Cliente | Painel Admin NEXUS |
 | :---: | :---: |
-| ![Dashboard Cliente](dashboard_cliente.png) | ![Painel Admin](dashboard_admin.png) |
+| ![Dashboard Cliente](abrir_chamado.png) | ![Painel Admin](dashboard_admin.png) |
 | *Conversa tipo WhatsApp* | *Possibilidade de Exclusão ou Edição do Chamado* |
 
 </div>
